@@ -1,5 +1,23 @@
 {% extends 'NST/base.html' %}
+{% load static %}
 
 {% block content %}
-    <h2>Hello, world! This is the index of Neural Style Transfer demo.</h2>
+<h2>Hello, world! This is the index of Neural Style Transfer demo.</h2>
+<hr>
+<form>
+    <div class="form-group">
+        <label for="image-select">Select the image you want to transform</label>
+        <input type="file" class="form-control-file" id="image-select">
+    </div>
+    <fieldset class="form-group">
+        <legend class="form-label">Select the desired style image</legend>
+        {% for style_image in style_images %}
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="style-select" id="radio{{ forloop.counter }}" value="{{ style_image }}">
+            <label class="form-check-label" for="radio{{ forloop.counter }}"><img src="{% get_static_prefix %}NST/images/styles/{{ style_image }}" width="500"></label>
+        </div>
+        {% endfor %}
+    </fieldset>
+    <button type="submit" class="btn btn-success">Style transfer</button>
+</form>
 {% endblock %}

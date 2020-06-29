@@ -1,12 +1,11 @@
-import os
-
 from django import forms
+
+from .models import Style
 
 
 def get_choices():
-    style_dir = 'NST/static/NST/images/styles'
-    style_images = [file for file in os.listdir(style_dir)]
-    choices = [[image_name, ' '.join((' '.join(image_name.split('.')[:-1])).split('_'))] for image_name in style_images]
+    styles = Style.objects.all()
+    choices = [(style.image.path, style.name) for style in styles]
     return choices
 
 
